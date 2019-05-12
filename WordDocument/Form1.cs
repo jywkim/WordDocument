@@ -39,6 +39,10 @@ namespace WordDocument
             //Create new document
             Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
+            //Add text to document  
+            document.Content.SetRange(0, 0);
+            document.Content.Text = "Test 1" + Environment.NewLine + "Test 2";
+
             //Save document
             object filename = @"C:\Users\Jon\Desktop\test.docx";
             document.SaveAs2(ref filename);
@@ -46,7 +50,7 @@ namespace WordDocument
             document = null;
             winword.Quit(ref missing, ref missing, ref missing);
             winword = null;
-            MessageBox.Show("Document created successfully !");
+            MessageBox.Show("Document created successfully!");
         }
     }
 }
