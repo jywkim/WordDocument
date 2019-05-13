@@ -39,6 +39,18 @@ namespace WordDocument
             //Create new document
             Microsoft.Office.Interop.Word.Document document = winword.Documents.Add(ref missing, ref missing, ref missing, ref missing);
 
+            //Add header into document  
+            foreach (Microsoft.Office.Interop.Word.Section section in document.Sections)
+            {
+                //Get header range and add header details
+                Microsoft.Office.Interop.Word.Range headerRange = section.Headers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                headerRange.Fields.Add(headerRange, Microsoft.Office.Interop.Word.WdFieldType.wdFieldPage);
+                headerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                headerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdBlue;
+                headerRange.Font.Size = 10;
+                headerRange.Text = "Test Header";
+            }
+
             //Add text to document  
             document.Content.SetRange(0, 0);
             document.Content.Text = "Test 1" + Environment.NewLine + "Test 2";
