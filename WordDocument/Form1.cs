@@ -51,6 +51,17 @@ namespace WordDocument
                 headerRange.Text = "Test Header";
             }
 
+            //Add footer into document  
+            foreach (Microsoft.Office.Interop.Word.Section wordSection in document.Sections)
+            {
+                //Get footer range and add footer details.  
+                Microsoft.Office.Interop.Word.Range footerRange = wordSection.Footers[Microsoft.Office.Interop.Word.WdHeaderFooterIndex.wdHeaderFooterPrimary].Range;
+                footerRange.Font.ColorIndex = Microsoft.Office.Interop.Word.WdColorIndex.wdDarkRed;
+                footerRange.Font.Size = 10;
+                footerRange.ParagraphFormat.Alignment = Microsoft.Office.Interop.Word.WdParagraphAlignment.wdAlignParagraphCenter;
+                footerRange.Text = "Test Footer";
+            }
+
             //Add text to document  
             document.Content.SetRange(0, 0);
             document.Content.Text = "Test 1" + Environment.NewLine + "Test 2";
